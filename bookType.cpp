@@ -4,7 +4,7 @@
 *  Partner B: Kayden Tarvaran (ID) — role: invmenu.cpp, main.cpp, reports.cpp
 *  Date: 2025‑09‑18
 *  Purpose: Design and implement menu-driven input with validation for an inventory system.
-*  Build:   g++ -std=c++20 mainmenu.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
+*  Build:   g++ -std=c++20 mainmenu.cpp bookType.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
 ***********************************************************************/
 
 #include "bookType.h"
@@ -41,7 +41,7 @@ bookType::bookType(const string &i, const string &t, const string &a, const stri
 
 bookType::~bookType()
 {
-    --bookCount;
+  bookCount--;
 }
 
 // Setters

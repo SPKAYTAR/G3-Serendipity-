@@ -4,7 +4,7 @@
 *  Partner B: Kayden Tarvaran (ID) — role: invmenu.cpp, main.cpp, reports.cpp
 *  Date: 2025‑09‑18
 *  Purpose: Design and implement menu-driven input with validation for an inventory system.
-*  Build:   g++ -std=c++20 mainmenu.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
+*  Build:   g++ -std=c++20 mainmenu.cpp bookType.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
 ***********************************************************************/
 
 
@@ -26,7 +26,8 @@ void invMenu(){
     char c;
     do{
 	 c = '0';
-     cout << "\x1B[2J\x1B[H"; // clear screen
+    cout << "\033[H\033[J" << flush;
+
 
     cout << setfill('*') << setw(80) << "*" << endl; 
     cout << setfill(' ');
@@ -96,12 +97,192 @@ void lookUpBook(){
     pause();
 }
 
-void addBook(){
-    cout << "\x1B[2J\x1B[H";
-    cout << "=== Add a Book ===\n";
-    cout << "[stub] Feature not implemented yet. Press Enter to continue.\n\n";
-    pause();
+void addBook()
+{
+    if (bookType::getBookCount() >= 20)
+    {
+        cout << "\033[H\033[J" << flush;
+
+        cout << "DATABASE FULL (20 BOOKS). Cannot add more.\n";
+        pause();
+        return;
+    }
+
+    database.reserve(20);
+
+    string title = "--EMPTY";
+    string isbn = "--EMPTY";
+    string author = "--EMPTY";
+    string publisher = "--EMPTY";
+    string dateAdded = "--EMPTY";
+    int qty = 0;
+    float wholesale = 0.0f;
+    float retail = 0.0f;
+
+    char c = '0';
+    string input;
+
+    do
+    {
+        cout << "\x1B[2J\x1B[H";
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << left << "*  " << setfill(' ') << setw(25) << "" << setw(51) << "SERENDIPITY BOOKSELLERS" << "*" << endl;
+        cout << left << "*  " <<setfill(' ') << setw(33) << "" << setw(43) << "ADD BOOK" << "*" << endl;
+        cout << left << "*  " << setw(76) << " " << "*" << endl;
+
+        
+        cout << left << "*  " << setfill(' ') << setw(27) << "" << setw(41) << "DATABASE SIZE: 20   CURRENT BOOK COUNT: " <<setw(8) << bookType::getBookCount() << "*" << endl;
+        cout << left << "*  " << setw(76) << " " << "*" << endl;
+        cout << "*  " << right << setw(76) << "--PENDING VALUES            " << "*" << endl;
+
+        
+        cout << left << "*  <1> Enter Book Title              > " << setw(40) << title << "*" << endl;
+        cout << left << "*  <2> Enter ISBN                    > " << setw(40) << isbn << "*" << endl;
+        cout << left << "*  <3> Enter Author                  > " << setw(40) << author << "*" << endl;
+        cout << left << "*  <4> Enter Publisher               > " << setw(40) << publisher << "*" << endl;
+        cout << left << "*  <5> Enter Date Added (mm/dd/yyyy) > " << setw(40) << dateAdded << "*" << endl;
+        cout << left << "*  <6> Enter Quantity on Hand        > " << setw(40) << qty << "*" << endl;
+        cout << left << "*  <7> Enter Wholesale Cost          > $" << setw(39) << fixed << setprecision(2) << wholesale << "*" << endl;
+        cout << left << "*  <8> Enter Retail Price            > $" << setw(39) << fixed << setprecision(2) << retail << "*" << endl;
+        cout << left << "*  <9> Save Book to Database" << setw(51) << " " << "*" << endl;
+        cout << left << "*  <0> Return to Inventory Menu" << setw(48) << " " << "*" << endl;
+        cout << left << "*  " << setw(76) << " " << "*" << endl;
+
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << "Choice(0-9): ";
+        getline(cin, input);
+
+        
+
+        if (input.length() == 1 && isdigit(input[0]))
+            c = input[0];
+        else
+            c = '0';
+
+        switch (c){
+    case '1':
+    {
+        cout << "Enter Book Title: ";
+        if (cin.peek() == '\n') cin.ignore();
+        getline(cin, title);
+        if (title.length() > 37)
+            title = title.substr(0, 37);
+        break;
+    }
+
+    case '2':
+    {
+        cout << "Enter ISBN: ";
+        if (cin.peek() == '\n') cin.ignore();
+        getline(cin, isbn);
+        if (isbn.length() > 13)
+            isbn = isbn.substr(0, 13);
+        break;
+    }
+
+    case '3':
+    {
+        cout << "Enter Author: ";
+        if (cin.peek() == '\n') cin.ignore();
+        getline(cin, author);
+        if (author.length() > 37)
+            author = author.substr(0, 37);
+        break;
+    }
+
+    case '4':
+    {
+        cout << "Enter Publisher: ";
+        if (cin.peek() == '\n') cin.ignore();
+        getline(cin, publisher);
+        if (publisher.length() > 37)
+            publisher = publisher.substr(0, 37);
+        break;
+    }
+
+    case '5':
+    {
+        cout << "Enter Date Added (mm/dd/yyyy): ";
+        if (cin.peek() == '\n') cin.ignore();
+        getline(cin, dateAdded);
+        if (dateAdded.length() > 8)
+            dateAdded = dateAdded.substr(0, 8);
+        break;
+    }
+
+    case '6':
+    {
+        cout << "Enter Quantity on Hand: ";
+        while (!(cin >> qty))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number: ";
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        break;
+    }
+
+    case '7':
+    {
+        cout << "Enter Wholesale Cost: ";
+        while (!(cin >> wholesale))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number: ";
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        break;
+    }
+
+    case '8':
+    {
+        cout << "Enter Retail Price: ";
+        while (!(cin >> retail))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number: ";
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        break;
+    }
+
+    case '9':
+    {
+        if (bookType::getBookCount() < 20)
+        {
+            database.emplace_back(isbn, title, author, publisher, dateAdded, qty, wholesale, retail);
+            cout << "\nBook saved successfully!";
+            c = '0';
+            pause();
+        }
+        else
+        {
+            cout << "\nDatabase full! Cannot save new book.";
+            pause();
+        }
+        break;
+    }
+
+    case '0':
+    {
+        break;
+    }
+
+    default:
+    {
+        cout << "Invalid entry. Enter 0–9.";
+        pause();
+        break;
+    }
 }
+} while (c != '0');
+}
+
 
 void editBook(){
     cout << "\x1B[2J\x1B[H";
