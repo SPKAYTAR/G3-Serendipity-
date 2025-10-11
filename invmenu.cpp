@@ -15,6 +15,11 @@
 #include <limits>
 using namespace std;
 #include "invmenu.h"
+#include "bookType.h"
+
+const int DATABASE_SIZE = 20;
+vector<bookType> database;
+
 
 void invMenu(){
     string input;
