@@ -23,19 +23,28 @@ int main(){
     string input;
     do {
 		  c = '0';
-        cout << "\x1B[2J\x1B[H";
-        cout << "==============================\n";
-        cout << "Serendipity Booksellers\n";
-        cout << "Main Menu\n";
-        cout << "------------------------------\n";
-        cout << "1. Cashier Module\n";
-        cout << "2. Inventory menu\n";
-        cout << "3. Report Module\n";
-        cout << "4. Exit\n";
-        cout << "------------------------------\n";
-        cout << "Enter choice: ";
+    cout << "\x1B[2J\x1B[H";
+    cout << setfill('*') << setw(80) << "*" << endl;
+    cout << setfill(' ');
 
-        getline(cin, input);
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "Serendipity Booksellers" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Main Menu" << "*" << endl;
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "1. Cashier Module" << "*" << endl;
+    cout << left << "*  " << setw(76) << "2. Inventory Menu" << "*" << endl;
+    cout << left << "*  " << setw(76) << "3. Report Module" << "*" << endl;
+    cout << left << "*  " << setw(76) << "4. Exit" << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Enter choice:" << "*" << endl;
+    cout << setfill('*') << setw(80) << "*" << endl; 
+
+    
+    cout << "\x1B[2A";   
+    cout << "\x1B[16C";  
+
+    getline(cin, input);
 
     if (input.length() == 1 && isdigit(input[0])) {
     c = input[0];

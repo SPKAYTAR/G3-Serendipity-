@@ -1,9 +1,9 @@
 /*********************************************************************
-* CS1B – G2: Serendipity
+* CS1B – G3: Serendipity
 *  Partner A: Sean Hanabusa (ID) — role: Cashier.cpp
 *  Partner B: Kayden Tarvaran (ID) — role: invmenu.cpp, main.cpp, reports.cpp
 *  Date: 2025‑09‑18
-*  Purpose: Menu navigation and validation practice: loop Main/Inventory/Reports, call function stubs, and print a two-decimal cashier test receipt
+*  Purpose: Design and implement menu-driven input with validation for an inventory system.
 *  Build:   g++ -std=c++20 mainmenu.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
 ***********************************************************************/
 
@@ -21,18 +21,27 @@ void invMenu(){
     char c;
     do{
 	 c = '0';
-    cout << "\x1B[2J\x1B[H";
-    cout << "==============================\n";
-    cout << "Serendipity Booksellers\n";
-    cout << "Inventory Database\n";
-    cout << "------------------------------\n";
-    cout << "1. Look Up a Book\n";
-    cout << "2. Add a Book\n";
-    cout << "3. Edit a Book's Record\n";
-    cout << "4. Delete a Book\n";
-    cout << "5. Return to the Main Menu\n";
-    cout << "------------------------------\n";
-    cout << "Enter choice: ";
+     cout << "\x1B[2J\x1B[H"; // clear screen
+
+    cout << setfill('*') << setw(80) << "*" << endl; 
+    cout << setfill(' ');
+
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "Serendipity Booksellers" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Inventory Database" << "*" << endl;
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "1. Look Up a Book" << "*" << endl;
+    cout << left << "*  " << setw(76) << "2. Add a Book" << "*" << endl;
+    cout << left << "*  " << setw(76) << "3. Edit a Book's Record" << "*" << endl;
+    cout << left << "*  " << setw(76) << "4. Delete a Book" << "*" << endl;
+    cout << left << "*  " << setw(76) << "5. Return to the Main Menu" << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Enter choice:" << "*" << endl;
+    cout << setfill('*') << setw(80) << "*" << endl; 
+
+    cout << "\x1B[2A";       
+    cout << "\x1B[16C";
 
     getline(cin, input);
 

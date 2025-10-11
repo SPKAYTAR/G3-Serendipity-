@@ -24,22 +24,33 @@ void reports(){
     char c;
     do{
 		  c = '0';
-        cout << "\x1B[2J\x1B[H";
-        cout << "==============================\n";
-        cout << "Serendipity Booksellers\n";
-        cout << "Reports\n";
-        cout << "------------------------------\n";
-        cout << "1. Listing report\n";
-        cout << "2. Wholesale report\n";
-        cout << "3. Retail report\n";
-        cout << "4. Quantity report\n";
-        cout << "5. Cost report\n";
-        cout << "6. Age report\n";
-        cout << "7. Return to the Main Menu\n";
-        cout << "------------------------------\n";
-        cout << "Enter choice: ";
+    cout << "\x1B[2J\x1B[H"; 
+
+   
+    cout << setfill('*') << setw(80) << "*" << endl;
+    cout << setfill(' ');
+
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "Serendipity Booksellers" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Reports" << "*" << endl;
+    cout << "*" << setw(78) << " " << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "1. Listing Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "2. Wholesale Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "3. Retail Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "4. Quantity Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "5. Cost Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "6. Age Report" << "*" << endl;
+    cout << left << "*  " << setw(76) << "7. Return to the Main Menu" << "*" << endl;
+    cout << left << "*  " << setw(76) << "------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Enter choice:" << "*" << endl;
+    cout << setfill('*') << setw(80) << "*" << endl; 
+
+    
+    cout << "\x1B[2A";   
+    cout << "\x1B[16C";  
         
-        getline(cin, input);
+    getline(cin, input);
 
     if (input.length() == 1 && isdigit(input[0])) {
     c = input[0];
