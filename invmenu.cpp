@@ -59,10 +59,16 @@ void invMenu(){
     switch(c){
 
         case '1': {
+				if (cin.rdbuf()->in_avail() > 0){
+    				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
             lookUpBook();
             break;
         }
         case '2': {
+				if (cin.rdbuf()->in_avail() > 0){
+   			 cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
             addBook();
             break;
         } 
@@ -246,8 +252,9 @@ void lookUpBook() {
 
 void addBook()
 {
-	if (cin.peek() == '\n')
-    cin.ignore();
+	if (cin.rdbuf()->in_avail() > 0){
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
 
 
     if (bookType::getBookCount() >= 20)
