@@ -91,10 +91,70 @@ void invMenu(){
 }
 
 void lookUpBook(){
+	string target; 
+	string title;
+	string isbn;
+	vector<int> bookLocations;
+	int choice;
+	bookLocations.reserve(20);
     cout << "\x1B[2J\x1B[H";
-    cout << "=== Look Up a Book ===\n";
-    cout << "[stub] Feature not implemented yet, Press enter to continue\n\n";
+    cout << "=== Look Up Book ===\n";
+    cout << "Enter Book Title or ISBN:";
+	cin >> target;
+	for (char &c : target){
+    	c = tolower(c);
+    }
+	for(int i = 0; i < database.size(); i++){
+		title = database[i].getTitle();
+		isbn = database[i].getISBN();
+		for (char &c : title){
+            c = tolower(c);
+        }
+		for (char &c : isbn){
+            c = tolower(c);
+        }
+		if (title.find(target) != string::npos || title.find(target) != string::npos){
+            bookLocations.push_back(i);
+        }
+	}
+	
+	if(bookLocations.size() == 0)
+	{
+		cout << "\x1B[2J\x1B[H";
+    	cout << "=== Look Up a Book ===\n";
+		cout << "item not in inventory" << endl;
+		pause();
+	}
+	else{
+		do
+		{
+		for(int i=0; i < bookLocations.size(); i++)
+		{
+			cout << "\x1B[2J\x1B[H";
+    		cout << "=== Look Up a Book ===\n";
+			cout << "Matching Books:" << endl;
+			cout << i << ". " << (database[bookLocations[i]].getTitle()).substr(0,30) << endl;
+		}
+			cout << "Enter Choice(-1 to Exit): ";
+			cin >> choice;
+			if (choice == -1)
+			{
+				break;
+			}
+			else if(choice < 0 || choice >= bookLocations.size()){
+				cout << "Enter Valid Choice (0-" << bookLocations.size()-1 << ")" << endl;
+				pause();
+			}
+			else
+			{
+				cout << "\x1B[2J\x1B[H";
+    			cout << "=== Look Up a Book ===\n";
+				database[bookLocations[choice]].print();
+			}
+		} while(choice < 0 || choice >=bookLocations.size());
+	}
     pause();
+	return();
 }
 
 void addBook()
