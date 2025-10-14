@@ -281,7 +281,12 @@ void addBook()
     string input;
 
     do
-    {
+    { 	if(bookType::getBookCount() >=20){
+				cout << "\033[H\033[J" << flush;
+				cout << "DATABASE FULL (20 BOOKS). CANNOT ADD MORE. \n";
+				pause();
+				return;
+				}
         cout << "\x1B[2J\x1B[H";
         cout << setfill('*') << setw(80) << "*" << endl;
         cout << setfill(' ');
