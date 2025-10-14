@@ -18,7 +18,7 @@ using namespace std;
 #include "bookType.h"
 
 const int DATABASE_SIZE = 20;
-vector<bookType> database;
+vector<bookType> database(DATABASE_SIZE);
 
 
 void invMenu(){
@@ -255,7 +255,7 @@ void addBook()
         return;
     }
 
-    database.reserve(20);
+    database.reserve(DATABASE_SIZE);
 
     string title = "--EMPTY";
     string isbn = "--EMPTY";
@@ -400,7 +400,7 @@ void addBook()
 
     case '9':
     {
-        if (bookType::getBookCount() < 20)
+        if (bookType::getBookCount() < DATABASE_SIZE)
         {
             database.emplace_back(isbn, title, author, publisher, dateAdded, qty, wholesale, retail);
             title = "--EMPTY";
