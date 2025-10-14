@@ -317,7 +317,6 @@ void addBook()
         {
             database.emplace_back(isbn, title, author, publisher, dateAdded, qty, wholesale, retail);
             cout << "\nBook saved successfully!";
-            c = '0';
             pause();
         }
         else
