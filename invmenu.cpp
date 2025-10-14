@@ -90,72 +90,159 @@ void invMenu(){
     
 }
 
-void lookUpBook(){
-	string target; 
-	string title;
-	string isbn;
-	vector<int> bookLocations;
-	int choice;
-	bookLocations.reserve(20);
+
+void lookUpBook() {
+    string target;
+    string title;
+    string isbn;
+    vector<int> bookLocations;
+    int choice;
+    bookLocations.reserve(20);
+
     cout << "\x1B[2J\x1B[H";
-    cout << "=== Look Up Book ===\n";
-    cout << "Enter Book Title or ISBN:";
-	cin >> target;
-	for (char &c : target){
-    	c = tolower(c);
+    cout << setfill('*') << setw(80) << "*" << endl;
+    cout << setfill(' ');
+    cout << left << "*  " << setw(76) << "SERENDIPITY BOOKSELLERS" << "*" << endl;
+    cout << left << "*  " << setw(76) << "LOOK UP BOOK" << "*" << endl;
+    cout << left << "*  " << setw(76) << "----------------------------------------" << "*" << endl;
+    cout << left << "*  " << setw(76) << "Enter Book Title or ISBN:" << "*" << endl;
+    cout << setfill('*') << setw(80) << "*" << endl;
+    cout << setfill(' ');
+    cout << "\x1B[2A";
+    cout << "\x1B[34C";
+
+    getline(cin, target);
+    if (target.empty()) {
+        cout << "\x1B[1E";
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << left << "*  " << setw(76) << "No input entered. Press Enter to return." << "*" << endl;
+        cout << setfill('*') << setw(80) << "*" << endl;
+        pause();
+        return;
     }
-	for(int i = 0; i < database.size(); i++){
-		title = database[i].getTitle();
-		isbn = database[i].getISBN();
-		for (char &c : title){
-            c = tolower(c);
-        }
-		for (char &c : isbn){
-            c = tolower(c);
-        }
-		if (title.find(target) != string::npos || title.find(target) != string::npos){
+
+    for (char &c : target) c = tolower(c);
+
+    for (int i = 0; i < (int)database.size(); i++) {
+        title = database[i].getTitle();
+        isbn = database[i].getISBN();
+        for (char &c : title) c = tolower(c);
+        for (char &c : isbn) c = tolower(c);
+        if (title.find(target) != string::npos || isbn.find(target) != string::npos)
             bookLocations.push_back(i);
+    }
+
+    if (bookLocations.empty()) {
+        cout << "\x1B[2J\x1B[H";
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << left << "*  " << setw(76) << "SERENDIPITY BOOKSELLERS" << "*" << endl;
+        cout << left << "*  " << setw(76) << "LOOK UP BOOK" << "*" << endl;
+        cout << left << "*  " << setw(76) << "----------------------------------------" << "*" << endl;
+        cout << left << "*  " << setw(76) << "Item not found in inventory." << "*" << endl;
+        cout << left << "*  " << setw(76) << "Would you like to search again? (Y/N)" << "*" << endl;
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << "\x1B[2A";
+        cout << "\x1B[36C";
+
+        string again;
+        getline(cin, again);
+        if (!again.empty() && (again[0] == 'y' || again[0] == 'Y')) {
+            lookUpBook();
+            return;
         }
-	}
-	
-	if(bookLocations.size() == 0)
-	{
-		cout << "\x1B[2J\x1B[H";
-    	cout << "=== Look Up a Book ===\n";
-		cout << "item not in inventory" << endl;
-		pause();
-	}
-	else{
-		do
-		{
-		for(int i=0; i < bookLocations.size(); i++)
-		{
-			cout << "\x1B[2J\x1B[H";
-    		cout << "=== Look Up a Book ===\n";
-			cout << "Matching Books:" << endl;
-			cout << i << ". " << (database[bookLocations[i]].getTitle()).substr(0,30) << endl;
-		}
-			cout << "Enter Choice(-1 to Exit): ";
-			cin >> choice;
-			if (choice == -1)
-			{
-				break;
-			}
-			else if(choice < 0 || choice >= bookLocations.size()){
-				cout << "Enter Valid Choice (0-" << bookLocations.size()-1 << ")" << endl;
-				pause();
-			}
-			else
-			{
-				cout << "\x1B[2J\x1B[H";
-    			cout << "=== Look Up a Book ===\n";
-				database[bookLocations[choice]].print();
-			}
-		} while(choice < 0 || choice >=bookLocations.size());
-	}
+        pause();
+        return;
+    }
+
+    bool invalidInput = false;
+    do {
+        cout << "\x1B[2J\x1B[H";
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << left << "*  " << setw(76) << "SERENDIPITY BOOKSELLERS" << "*" << endl;
+        cout << left << "*  " << setw(76) << "LOOK UP BOOK" << "*" << endl;
+        cout << left << "*  " << setw(76) << "----------------------------------------" << "*" << endl;
+        cout << left << "*  " << setw(76) << "Matching Books:" << "*" << endl;
+
+        for (int i = 0; i < (int)bookLocations.size(); i++) {
+            string shortTitle = database[bookLocations[i]].getTitle().substr(0, 50);
+            cout << left << "*     " << setw(73) << (to_string(i) + ". " + shortTitle) << "*" << endl;
+        }
+
+        cout << left << "*  " << setw(76) << "----------------------------------------" << "*" << endl;
+        cout << left << "*  " << setw(76) << "Enter Choice (-1 to Exit):" << "*" << endl;
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+
+        if (invalidInput) {
+            cout << " Invalid input. Please enter a number between 0 and "
+                 << bookLocations.size() - 1 << " or -1 to exit.\n";
+            invalidInput = false;
+            cout << "\x1B[1A";
+        }
+
+        cout << "\x1B[2A";
+        cout << "\x1B[35C";
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            invalidInput = true;
+            continue;
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (choice == -1) break;
+        if (choice < 0 || choice >= (int)bookLocations.size()) {
+            invalidInput = true;
+            continue;
+        }
+
+        // Display selected book info
+        cout << "\x1B[2J\x1B[H";
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << left << "*  " << setw(76) << "SERENDIPITY BOOKSELLERS" << "*" << endl;
+        cout << left << "*  " << setw(76) << "BOOK DETAILS" << "*" << endl;
+        cout << left << "*  " << setw(76) << "----------------------------------------" << "*" << endl;
+
+        cout << left << "*  " << setw(76) << ("Title: " + database[bookLocations[choice]].getTitle()) << "*" << endl;
+        cout << left << "*  " << setw(76) << ("Author: " + database[bookLocations[choice]].getAuthor()) << "*" << endl;
+        cout << left << "*  " << setw(76) << ("ISBN: " + database[bookLocations[choice]].getISBN()) << "*" << endl;
+        cout << left << "*  " << setw(76) << ("Publisher: " + database[bookLocations[choice]].getPub()) << "*" << endl;
+        cout << left << "*  " << setw(76) << ("Date Added: " + database[bookLocations[choice]].getDateAdded()) << "*" << endl;
+
+        int qty = database[bookLocations[choice]].getQtyOnHand();
+        float wholesale = database[bookLocations[choice]].getWholesale();
+        float retail = database[bookLocations[choice]].getRetail();
+
+        ostringstream qtyStr, wholesaleStr, retailStr;
+        qtyStr << "Quantity: " << qty;
+        wholesaleStr << fixed << setprecision(2) << "Wholesale: $" << wholesale;
+        retailStr << fixed << setprecision(2) << "Retail: $" << retail;
+
+        cout << left << "*  " << setw(76) << qtyStr.str() << "*" << endl;
+        cout << left << "*  " << setw(76) << wholesaleStr.str() << "*" << endl;
+        cout << left << "*  " << setw(76) << retailStr.str() << "*" << endl;
+
+        cout << setfill('*') << setw(80) << "*" << endl;
+        cout << setfill(' ');
+        cout << "\nPress Enter to continue.";
+        pause();
+
+    } while (true);
+
     pause();
-	return;
 }
+
+
+
+
+
 
 void addBook()
 {
@@ -219,7 +306,7 @@ void addBook()
         if (input.length() == 1 && isdigit(input[0]))
             c = input[0];
         else
-            c = '0';
+            continue;
 
         switch (c){
     case '1':
@@ -316,8 +403,15 @@ void addBook()
         if (bookType::getBookCount() < 20)
         {
             database.emplace_back(isbn, title, author, publisher, dateAdded, qty, wholesale, retail);
-            cout << "\nBook saved successfully!";
-            pause();
+            title = "--EMPTY";
+            isbn = "--EMPTY";
+            author = "--EMPTY";
+            publisher = "--EMPTY";
+            dateAdded = "--EMPTY";
+            qty = 0;
+            wholesale = 0.0f;
+            retail = 0.0f;
+           
         }
         else
         {
@@ -334,7 +428,7 @@ void addBook()
 
     default:
     {
-        cout << "Invalid entry. Enter 0–9.";
+        cout << "Invalid entry. Enter 0–>9.";
         pause();
         break;
     }
@@ -360,3 +454,4 @@ void deleteBook(){
 void pause(){
   cin.get();
 }
+
