@@ -246,6 +246,10 @@ void lookUpBook() {
 
 void addBook()
 {
+	if (cin.peek() == '\n')
+    cin.ignore();
+
+
     if (bookType::getBookCount() >= 20)
     {
         cout << "\033[H\033[J" << flush;
