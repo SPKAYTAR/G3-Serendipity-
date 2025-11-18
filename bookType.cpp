@@ -12,6 +12,8 @@
  */
 
 #include "bookType.h"
+#include <iostream>
+using namespace std;
 
 int bookType::bookCount = 0;
 
@@ -21,14 +23,14 @@ int bookType::bookCount = 0;
  */
 bookType::bookType()
 {
-    isbn = "";
-    bookTitle = "";
-    author = "";
-    publisher = "";
-    dateAdded = "";
-    qtyOnHand = 0;
-    wholesale = 0.0f;
-    retail = 0.0f;
+    isbn       = "";
+    bookTitle  = "";
+    author     = "";
+    publisher  = "";
+    dateAdded  = "";
+    qtyOnHand  = 0;
+    wholesale  = 0.0f;
+    retail     = 0.0f;
 
     ++bookCount;
 }
@@ -36,30 +38,30 @@ bookType::bookType()
 /**
  * @brief Fully initializing constructor.
  * 
- * @param i ISBN
- * @param t Title
- * @param a Author
- * @param p Publisher
- * @param d Date added
- * @param q Quantity on hand (must be >= 0)
- * @param w Wholesale cost (must be >= 0)
- * @param r Retail cost (must be >= 0)
+ * @param i ISBN string.
+ * @param t Title of the book.
+ * @param a Author name.
+ * @param p Publisher name.
+ * @param d Date added.
+ * @param q Quantity on hand (must be >= 0).
+ * @param w Wholesale cost (must be >= 0).
+ * @param r Retail cost (must be >= 0).
  *
  * @pre q >= 0, w >= 0.0, r >= 0.0
- * @post All fields copied and object count incremented.
+ * @post All fields initialized and bookCount incremented.
  */
 bookType::bookType(const string &i, const string &t, const string &a,
                    const string &p, const string &d,
                    int q, float w, float r)
 {
-    isbn = i;
-    bookTitle = t;
-    author = a;
-    publisher = p;
-    dateAdded = d;
-    qtyOnHand = q;
-    wholesale = w;
-    retail = r;
+    isbn       = i;
+    bookTitle  = t;
+    author     = a;
+    publisher  = p;
+    dateAdded  = d;
+    qtyOnHand  = q;
+    wholesale  = w;
+    retail     = r;
 
     ++bookCount;
 }
@@ -70,139 +72,105 @@ bookType::bookType(const string &i, const string &t, const string &a,
  */
 bookType::~bookType()
 {
-    bookCount--;
+    --bookCount;
 }
 
 // ========================== SETTERS =========================== //
 
-/** @brief Sets ISBN. */
-void bookType::setISBN(const string &i) {
-    isbn = i;
-}
-
-/** @brief Sets title. */
-void bookType::setTitle(const string &t) {
-    bookTitle = t;
-}
-
-/** @brief Sets author. */
-void bookType::setAuthor(const string &a) {
-    author = a;
-}
-
-/** @brief Sets publisher. */
-void bookType::setPub(const string &p) {
-    publisher = p;
-}
-
-/** @brief Sets date added. */
-void bookType::setDateAdded(const string &d) {
-    dateAdded = d;
-}
-
-/**
- * @brief Sets quantity on hand.
- * @param q must be >= 0
- * @pre q >= 0
- * @post qtyOnHand updated.
+/** @brief Sets ISBN.
+ *  @param i New ISBN value.
  */
-void bookType::setQtyOnHand(int q) {
-    qtyOnHand = q;
-}
+void bookType::setISBN(const string &i) { isbn = i; }
 
-/**
- * @brief Sets wholesale price.
- * @param w must be >= 0
- * @pre w >= 0
- * @post wholesale updated.
+/** @brief Sets title.
+ *  @param t New book title.
  */
-void bookType::setWholesale(float w) {
-    wholesale = w;
-}
+void bookType::setTitle(const string &t) { bookTitle = t; }
 
-/**
- * @brief Sets retail price.
- * @param r must be >= 0
- * @pre r >= 0
- * @post retail updated.
+/** @brief Sets author.
+ *  @param a New author name.
  */
-void bookType::setRetail(float r) {
-    retail = r;
-}
+void bookType::setAuthor(const string &a) { author = a; }
+
+/** @brief Sets publisher.
+ *  @param p New publisher name.
+ */
+void bookType::setPub(const string &p) { publisher = p; }
+
+/** @brief Sets date added.
+ *  @param d New date added.
+ */
+void bookType::setDateAdded(const string &d) { dateAdded = d; }
+
+/** @brief Sets quantity on hand.
+ *  @param q New quantity (must be >= 0).
+ *  @pre q >= 0
+ *  @post qtyOnHand updated.
+ */
+void bookType::setQtyOnHand(int q) { qtyOnHand = q; }
+
+/** @brief Sets wholesale price.
+ *  @param w New wholesale price (must be >= 0).
+ *  @pre w >= 0
+ *  @post wholesale updated.
+ */
+void bookType::setWholesale(float w) { wholesale = w; }
+
+/** @brief Sets retail price.
+ *  @param r New retail price (must be >= 0).
+ *  @pre r >= 0
+ *  @post retail updated.
+ */
+void bookType::setRetail(float r) { retail = r; }
 
 // ========================== GETTERS =========================== //
 
 /** @return ISBN string. */
-string bookType::getISBN() const {
-    return isbn;
-}
+string bookType::getISBN() const { return isbn; }
 
 /** @return Book title. */
-string bookType::getTitle() const {
-    return bookTitle;
-}
+string bookType::getTitle() const { return bookTitle; }
 
 /** @return Author name. */
-string bookType::getAuthor() const {
-    return author;
-}
+string bookType::getAuthor() const { return author; }
 
 /** @return Publisher name. */
-string bookType::getPub() const {
-    return publisher;
-}
+string bookType::getPub() const { return publisher; }
 
 /** @return Date book was added. */
-string bookType::getDateAdded() const {
-    return dateAdded;
-}
+string bookType::getDateAdded() const { return dateAdded; }
 
 /** @return Quantity in stock. */
-int bookType::getQtyOnHand() const {
-    return qtyOnHand;
-}
+int bookType::getQtyOnHand() const { return qtyOnHand; }
 
 /** @return Wholesale cost. */
-float bookType::getWholesale() const {
-    return wholesale;
-}
+float bookType::getWholesale() const { return wholesale; }
 
 /** @return Retail price. */
-float bookType::getRetail() const {
-    return retail;
-}
+float bookType::getRetail() const { return retail; }
 
-/**
- * @brief Returns global object count.
- * @return number of active bookType objects.
+/** @brief Returns number of active bookType objects.
+ *  @return bookCount
  */
-int bookType::getBookCount() {
-    return bookCount;
-}
+int bookType::getBookCount() { return bookCount; }
 
 // ====================== OTHER METHODS ====================== //
 
-/**
- * @brief Prints all book fields (debugging).
- */
+/** @brief Prints all book fields (debugging). */
 void bookType::print() const
 {
-    cout << "Title: " << bookTitle << endl;
-    cout << "Author: " << author << endl;
-    cout << "ISBN: " << isbn << endl;
-    cout << "Publisher: " << publisher << endl;
-    cout << "Date Added: " << dateAdded << endl;
-    cout << "Quantity: " << qtyOnHand << endl;
-    cout << "Wholesale: $" << wholesale << endl;
-    cout << "Retail: $" << retail << endl;
+    cout << "Title: "      << bookTitle  << endl;
+    cout << "Author: "     << author     << endl;
+    cout << "ISBN: "       << isbn       << endl;
+    cout << "Publisher: "  << publisher  << endl;
+    cout << "Date Added: " << dateAdded  << endl;
+    cout << "Quantity: "   << qtyOnHand  << endl;
+    cout << "Wholesale: $" << wholesale  << endl;
+    cout << "Retail: $"    << retail     << endl;
 }
 
-/**
- * @brief Checks if two books are equal by ISBN.
- * @param b Another bookType
- * @return true if ISBN is identical.
+/** @brief Checks if two books are equal by ISBN.
+ *  @param b Book to compare against.
+ *  @return true if ISBNs match, false otherwise.
  */
-bool bookType::equals(const bookType &b) const
-{
-    return isbn == b.isbn;
-}
+bool bookType::equals(const bookType &b) const { return isbn == b.isbn; }

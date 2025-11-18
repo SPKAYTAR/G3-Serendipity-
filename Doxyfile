@@ -1,0 +1,40 @@
+#-----------------------------------------
+# Project
+#-----------------------------------------
+PROJECT_NAME           = "G4 Serendipity Booksellers"
+PROJECT_BRIEF          = "Inventory Edit/Delete with Doxygen Documentation"
+
+#-----------------------------------------
+# Input
+#-----------------------------------------
+INPUT                  = .
+FILE_PATTERNS          = *.cpp *.h *.md
+
+USE_MDFILE_AS_MAINPAGE = mainpage.md
+
+#-----------------------------------------
+# Output
+#-----------------------------------------
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+#-----------------------------------------
+# Build settings
+#-----------------------------------------
+RECURSIVE              = NO
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+#-----------------------------------------
+# Formatting
+#-----------------------------------------
+MARKDOWN_SUPPORT       = YES
+JAVADOC_AUTOBRIEF      = YES
+
+#-----------------------------------------
+# Warnings
+#-----------------------------------------
+WARNINGS               = NO
+QUIET                  = YES

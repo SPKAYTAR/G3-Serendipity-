@@ -16,47 +16,71 @@
 using namespace std;
 
 /**
+ * @file invmenu.h
+ * @brief Declarations for the Inventory module in Serendipity Booksellers.
+ *
+ * This module provides functions for:
+ * - Searching for books (lookUpBook)
+ * - Displaying book details
+ * - Adding, editing, and deleting books
+ * - Handling user input and menu navigation
+ *
+ * Duplicate ISBNs are blocked during add/edit operations.
+ */
+
+/**
  * @brief Displays the Inventory Menu and handles user navigation.
  * @param books Reference to the vector of book records.
+ * @post Menu loops until the user chooses to return to the main menu.
  */
 void invMenu(vector<bookType>& books);
 
 /**
- * @brief Searches for a book by ISBN.
- * @param books Constant reference to the book vector.
- * @return Index of the book if found, otherwise -1.
+ * @brief Searches for a book by partial, case-insensitive title or ISBN.
+ * @param books Constant reference to the vector of book records.
+ * @return Index of the selected book in the vector, or -1 if canceled or not found.
+ * @post No modification to the vector.
  */
 int lookUpBook(const vector<bookType>& books);
 
 /**
- * @brief Prints all stored details of a single book.
- * @param books Constant reference to the book vector.
- * @param index Index of the selected book.
+ * @brief Prints the full details of a single book.
+ * @param books Constant reference to the vector of book records.
+ * @param index Index of the selected book in the vector.
+ * @pre index >= 0 and < books.size()
+ * @post No modification to the vector.
  */
 void printBookDetails(const vector<bookType>& books, int index);
 
 /**
  * @brief Adds a new book to the inventory.
  * @param books Reference to the vector of book records.
+ * @pre ISBN must be unique in the vector.
+ * @post A new book is appended to the vector if there is space.
  */
 void addBook(vector<bookType>& books);
 
 /**
- * @brief Edits an existing book in the inventory.
+ * @brief Edits an existing book in the inventory using a menu-driven interface.
  * @param books Reference to the vector of book records.
+ * @pre books.size() > 0
+ * @post Updates are applied only after the user chooses "Save"; cancel discards changes.
+ *       ISBN duplicates are blocked and reset automatically.
  */
 void editBook(vector<bookType>& books);
 
 /**
- * @brief Deletes a book from the inventory.
+ * @brief Deletes a book from the inventory after user confirmation.
  * @param books Reference to the vector of book records.
+ * @pre books.size() > 0
+ * @post Selected book is removed from the vector and the vector is compacted.
  */
 void deleteBook(vector<bookType>& books);
 
 /**
- * @brief Pauses program execution until user presses Enter.
+ * @brief Pauses program execution until the user presses Enter.
+ * @post Execution resumes after Enter is pressed.
  */
 void pause();
 
-#endif
-
+#endif // INVMENU_H
