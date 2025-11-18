@@ -1,9 +1,9 @@
 /*********************************************************************
-* CS1B – G2: Serendipity
-*  Partner A: Sean Hanabusa (ID) — role: Cashier.cpp
-*  Partner B: Kayden Tarvaran (ID) — role: invmenu.cpp, main.cpp, reports.cpp
-*  Date: 2025‑09‑18
-*  Purpose: Menu navigation and validation practice: loop Main/Inventory/Reports, call function stubs, and print a two-decimal cashier test receipt
+* CS1B – G4: Serendipity
+*  Partner A: Kayden Tarvaran (1250210) — 
+*  Date: 2025‑011‑17
+*  Purpose: Complete the Inventory features Edit Book and Delete Book using either a std::vector<bookType> or a raw array bookType books[] 
+*  with a num_records counter. Document the project with Doxygen and demo your work in class.
 *  Build:   g++ -std=c++20 mainmenu.cpp bookType.cpp cashier.cpp invmenu.cpp reports.cpp -o serendipity
 ***********************************************************************/
 

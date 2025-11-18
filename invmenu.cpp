@@ -280,8 +280,10 @@ void addBook(vector<bookType>& books){
 
             case '1':
                 cout << "Enter Title: ";
-                getline(cin,title);
+                getline(cin, title);
+                title = title.substr(0, 37);
                 break;
+
 
             case '2': {
                 cout << "Enter ISBN: ";
@@ -302,16 +304,19 @@ void addBook(vector<bookType>& books){
             case '3':
                 cout << "Enter Author: ";
                 getline(cin,author);
+                author = author.substr(0, 37);
                 break;
 
             case '4':
                 cout << "Enter Publisher: ";
                 getline(cin,publisher);
+                publisher = publisher.substr(0, 37);
                 break;
 
             case '5':
                 cout << "Enter Date Added: ";
                 getline(cin,dateAdded);
+                dateAdded = dateAdded.substr(0, 9);
                 break;
 
             case '6':
@@ -437,7 +442,7 @@ void editBook(vector<bookType>& books){
         else {
             cout << "Invalid. Press Enter.";
             pause();
-            continue;
+            
         }
 
         switch(c)
@@ -541,6 +546,10 @@ void editBook(vector<bookType>& books){
 
 
 void deleteBook(vector<bookType>& books){
+
+    char c = '0';
+
+    do {
     if (books.size() == 0){
         cout << "\x1B[2J\x1B[H";
         cout << "No books in database. Press Enter.";
@@ -551,20 +560,15 @@ void deleteBook(vector<bookType>& books){
     // Step 1 — Select book using lookup
     int index = lookUpBook(books);
 
-    if (index < 0){
-        cout << "\x1B[2J\x1B[H";
-        cout << "No book selected. Press Enter.";
-        pause();
-        return;
-    }
-
+    string choice;
+    if(index >= 0){
     // Step 2 — Confirm delete
     cout << "\x1B[2J\x1B[H";
     cout << "Are you sure you want to delete:\n";
     cout << "  \"" << books[index].getTitle() << "\"\n";
     cout << "(Y/N): ";
 
-    string choice;
+    
     getline(cin, choice);
 
     if (choice.length() > 0 && (choice[0] == 'Y' || choice[0] == 'y')){
@@ -573,13 +577,27 @@ void deleteBook(vector<bookType>& books){
 
         cout << "\nBook deleted. Press Enter.";
         pause();
-        return;
+        
     }
     else{
         cout << "\nDeletion cancelled. Press Enter.";
         pause();
-        return;
+        
     }
+    }
+    
+    cout << "Edit another? (y/n)\n";
+    getline(cin, choice);
+    if (choice.length() > 0 && (choice[0] == 'Y' || choice[0] == 'y')){
+        
+    }
+    else{
+        c = 'E';
+
+    }
+
+} while (c != 'E' );
+return;
 }
 
 
