@@ -8,24 +8,17 @@
 ***********************************************************************/
 #ifndef CASHIER_H
 #define CASHIER_H
-#include <iostream>
-#include <iomanip>
-#include <cctype>
-#include <vector>
-#include <limits>
-#include <string>
-using namespace std;  
 
-struct bookType {
-  string date;
-  int    quantity;
-  string isbn;
-  string title;
-  double price;
-};
+#include <vector>
+#include "bookType.h"
+
+void cashier();
 
 bookType getBookInfo();
-void displayCashier(const bookType& book, double subtotal, double tax, double total);
-void cashier();
+
+void displayCashier(const bookType& book,
+                    double subtotal,
+                    double tax,
+                    double total);
 
 #endif

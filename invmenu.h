@@ -10,11 +10,23 @@
 #ifndef INVMENU_H
 #define INVMENU_H
 
-void invMenu();
-void lookUpBook();
-void addBook();
-void editBook();
-void deleteBook();
+#include <vector>
+#include "bookType.h"
+
+using namespace std;
+
+void invMenu(vector<bookType>& books);
+
+int lookUpBook(const vector<bookType>& books);
+
+void printBookDetails(const vector<bookType>& books, int index);
+
+void addBook(vector<bookType>& books);
+
+void editBook(vector<bookType>& books);
+
+void deleteBook(vector<bookType>& books);
+
 void pause();
 
-#endif 
+#endif
